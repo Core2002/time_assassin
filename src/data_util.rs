@@ -18,3 +18,7 @@ fn run_ps(cmd: &str) {
     let output = ps.run(cmd).unwrap();
     print!("out: {}", output.stdout().unwrap());
 }
+
+pub fn commit(commit_message: &str) {
+    run_ps(&format!("git commit -m {}", commit_message));
+}
