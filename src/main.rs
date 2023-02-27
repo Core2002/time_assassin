@@ -1,4 +1,4 @@
-use crate::data_util::update_data;
+use crate::data_util::up_date_data;
 
 mod data_util;
 
@@ -10,26 +10,38 @@ struct YearPanel {
 }
 
 fn main() {
-    let y2018 = YearPanel {
+    let mut y2018 = YearPanel {
         day_flag: [2018, 1, 365],
         day_arr: [[0; 7]; 53],
     };
 
-    print_year_panel(y2018);
+    init_year_panel(&mut y2018);
+    print_year_panel_l(y2018);
 }
 
-fn print_year_panel(yp: YearPanel) {
+// 横着输出
+fn print_year_panel_l(yp: YearPanel) {
+    for id in 0..7 {
+        for iw in 0..yp.day_arr.len() {
+            print!("{}", yp.day_arr[iw][id])
+        }
+        println!(" - {}", id + 1)
+    }
+}
+
+// 初始化年看板
+fn init_year_panel(yp: &mut YearPanel) {
     for iw in 0..yp.day_arr.len() {
         for id in 0..yp.day_arr[iw].len() {
             if iw * 7 + id > yp.day_flag[2] {
-                break;
+                yp.day_arr[iw][id] = 1;
+                continue;
             }
             if iw <= yp.day_flag[1] / 7 && id < yp.day_flag[2] % 7 {
-                print!("X")
+                yp.day_arr[iw][id] = 1;
             } else {
-                print!("{}", id)
+                yp.day_arr[iw][id] = 0;
             }
         }
-        println!(" - {}", iw + 1)
     }
 }
