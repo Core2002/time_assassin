@@ -25,6 +25,14 @@ fn main() {
 
     init_year_panel(&mut y2019);
     print_year_panel_l(y2019);
+
+    let mut y2020 = YearPanel {
+        day_flag: [2020, 3, 366],
+        day_arr: [[0; 7]; 53],
+    };
+
+    init_year_panel(&mut y2020);
+    print_year_panel_l(y2020);
 }
 
 // 横着输出
