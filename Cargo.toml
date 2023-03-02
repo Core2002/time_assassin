@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 powershell_script = "1.0.4"
+# console_engine = "2.5.1"
+serde_json = "1.0.93"
