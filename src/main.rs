@@ -1,6 +1,11 @@
-use crate::data_util::up_date_data;
+use std::{collections::HashMap, io::Read};
 
-mod data_util;
+use util::{commit_and_push, set_data};
+use serde_json::Value;
+
+use crate::util::sync_data;
+
+mod util;
 
 struct YearPanel {
     // year | count of start empty block | count of blocks in a year
@@ -10,29 +15,21 @@ struct YearPanel {
 }
 
 fn main() {
-    let mut y2018 = YearPanel {
-        day_flag: [2018, 1, 365],
-        day_arr: [[0; 7]; 53],
-    };
+    util::init();
 
-    init_year_panel(&mut y2018);
-    print_year_panel_l(y2018);
+    let mut json_str = String::new();
+    std::fs::File::open("json/test114514.json")
+        .unwrap()
+        .read_to_string(&mut json_str)
+        .unwrap();
 
-    let mut y2019 = YearPanel {
-        day_flag: [2019, 2, 365],
-        day_arr: [[0; 7]; 53],
-    };
-
-    init_year_panel(&mut y2019);
-    print_year_panel_l(y2019);
-
-    let mut y2020 = YearPanel {
-        day_flag: [2020, 3, 366],
-        day_arr: [[0; 7]; 53],
-    };
-
-    init_year_panel(&mut y2020);
-    print_year_panel_l(y2020);
+    let jmap: HashMap<String, Value> = serde_json::from_str(&json_str).unwrap();
+    for (k, v) in jmap {
+        set_data(&k);
+        util::write_str(&k);
+        commit_and_push("commit_message");
+    }
+    sync_data();
 }
 
 // 横着输出
@@ -63,4 +60,30 @@ fn init_year_panel(yp: &mut YearPanel) {
             }
         }
     }
+}
+
+fn show_year_panel() {
+    let mut y2018 = YearPanel {
+        day_flag: [2018, 1, 365],
+        day_arr: [[0; 7]; 53],
+    };
+
+    init_year_panel(&mut y2018);
+    print_year_panel_l(y2018);
+
+    let mut y2019 = YearPanel {
+        day_flag: [2019, 2, 365],
+        day_arr: [[0; 7]; 53],
+    };
+
+    init_year_panel(&mut y2019);
+    print_year_panel_l(y2019);
+
+    let mut y2020 = YearPanel {
+        day_flag: [2020, 3, 366],
+        day_arr: [[0; 7]; 53],
+    };
+
+    init_year_panel(&mut y2020);
+    print_year_panel_l(y2020);
 }
