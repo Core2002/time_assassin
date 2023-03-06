@@ -1,14 +1,17 @@
 class YearPanel {
     day_flag: number[]
     day_arr: number[][]
+    day_date_arr: Date[][]
 
     constructor(day_flag: number[]) {
         this.day_flag = day_flag
         var lw = 7
         var ld = 53
         this.day_arr = new Array(ld)
+        this.day_date_arr = new Array(ld)
         for (let i = 0; i < ld; i++) {
             this.day_arr[i] = new Array(7)
+            this.day_date_arr[i] = new Array(7)
         }
 
         for (let iw = 0; iw < ld; iw++) {
@@ -21,6 +24,7 @@ class YearPanel {
                     this.day_arr[iw][id] = 0;
                 } else {
                     this.day_arr[iw][id] = 2;
+                    this.day_date_arr[iw][id] = addDay(new Date(day_flag[0] + "-01-01"), lw * iw + id);
                 }
             }
         }
@@ -37,7 +41,7 @@ class YearPanel {
                 if (this.day_arr[iw][id] == 0 || this.day_arr[iw][id] == 1) {
                     addWhiteBlock()
                 } else if (this.day_arr[iw][id] == 2) {
-                    addBlock()
+                    addBlock(this.day_date_arr[iw][id])
                 }
             }
             res += "\n"
@@ -55,8 +59,8 @@ function addBr() {
     addEle("<br>")
 }
 
-function addBlock() {
-    addEle("<button onclick=\"xwx(this)\" type=\"button\" class=\"layui-btn layui-btn-xs\" style=\"background-color: darkgrey;padding: 15;margin: 2px;\">...</button>")
+function addBlock(dateTitle: Date) {
+    addEle("<button title=\"" + dateTitle + "\" onclick=\"xwx(this)\" type=\"button\" class=\"layui-btn layui-btn-xs\" style=\"background-color: darkgrey;padding: 15;margin: 2px;\">...</button>")
 }
 
 function addWhiteBlock() {
@@ -77,4 +81,10 @@ function xwx(el: Element) {
         el.setAttribute("d", "3")
         el.setAttribute("style", "background-color: green;margin: 2px;")
     }
+}
+
+function addDay(dt: Date, dn: number) {
+    var d = new Date(dt.getTime() + dn * 24 * 60 * 60 * 1000)
+    console.log(d)
+    return d
 }
