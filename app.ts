@@ -16,7 +16,7 @@ class YearPanel {
 
         for (let iw = 0; iw < ld; iw++) {
             for (let id = 0; id < lw; id++) {
-                if ((iw + 1) * lw + (id + 1) - this.day_flag[1] > this.day_flag[2]) {
+                if (iw * lw + id - this.day_flag[1] >= this.day_flag[2]) {
                     this.day_arr[iw][id] = 1;
                     continue;
                 }
@@ -24,7 +24,7 @@ class YearPanel {
                     this.day_arr[iw][id] = 0;
                 } else {
                     this.day_arr[iw][id] = 2;
-                    this.day_date_arr[iw][id] = addDay(new Date(day_flag[0] + "-01-01"), lw * iw + id);
+                    this.day_date_arr[iw][id] = addDay(new Date(day_flag[0] + "-01-01"), lw * iw + id - 1);
                 }
             }
         }
@@ -60,7 +60,7 @@ function addBr() {
 }
 
 function addBlock(dateTitle: Date) {
-    addEle("<button title=\"" + dateTitle + "\" onclick=\"xwx(this)\" type=\"button\" class=\"layui-btn layui-btn-xs\" style=\"background-color: darkgrey;padding: 15;margin: 2px;\">...</button>")
+    addEle("<button title=\"" + dateTitle.toISOString() + "\" onclick=\"xwx(this)\" type=\"button\" class=\"layui-btn layui-btn-xs\" style=\"background-color: darkgrey;padding: 15;margin: 2px;\">...</button>")
 }
 
 function addWhiteBlock() {
@@ -85,6 +85,6 @@ function xwx(el: Element) {
 
 function addDay(dt: Date, dn: number) {
     var d = new Date(dt.getTime() + dn * 24 * 60 * 60 * 1000)
-    console.log(d)
+    // console.log(d)
     return d
 }
