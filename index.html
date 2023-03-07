@@ -4,36 +4,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>开始使用 Layui</title>
+  <title>时间刺客</title>
   <link href="./layui/css/layui.css" rel="stylesheet">
   <script src="./layui/layui.js"></script>
   <script>
-    // 使用组件
-    layui.use(['layer', 'form','code'], function () {
+    layui.use(['layer', 'form', 'code'], function () {
       var layer = layui.layer;
       var form = layui.form;
 
-      // 欢迎语
-      layer.msg('Hello World');
+      layer.msg('欢迎使用时间刺客');
       layui.code();
     });
   </script>
 </head>
 
 <body>
-  <div class="layui-row layui-col-space10">
-    <div class="layui-col-md3">
-    </div>
+  <div class="layui-col-md12">
+    <div class="layui-col-md3"><br></div>
     <div class="layui-col-md6">
-      <div id="qwq" style="zoom:0.7;"></div>
+      <div id="qwq" style="zoom:0.7;"></div><br>
       <button type="button" onclick="clickBuild();layui.code();" class="layui-btn layui-btn-lg layui-btn-normal">Build</button>
       <pre id="res" class="layui-code" lay-title="JavaScript"></pre>
     </div>
-    <div class="layui-col-md3">
-    </div>
+    <div class="layui-col-md3"><br></div>
   </div>
-  <!-- <button type="button" class="layui-btn layui-btn-xs" style="background-color: white;padding: 15;margin: 2px;">...</button> -->
-  <br>
+
   <script src="app.js"></script>
 </body>
 

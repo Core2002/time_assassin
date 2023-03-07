@@ -102,6 +102,6 @@ function clickBuild() {
         }
     }
     const res = document.getElementById('res')!;
-    res.innerText = JSON.stringify(dataMap, null, "    ");
+    res.innerHTML = JSON.stringify(dataMap, null, "    ")
     console.log(dataMap)
 }
