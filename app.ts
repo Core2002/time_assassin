@@ -101,6 +101,7 @@ function clickBuild() {
             dataMap[title] = "1"
         }
     }
-
+    const res = document.getElementById('res')!;
+    res.innerText = JSON.stringify(dataMap, null, "    ");
     console.log(dataMap)
 }
