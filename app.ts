@@ -90,7 +90,7 @@ function addDay(dt: Date, dn: number) {
 }
 
 function clickBuild() {
-    var dataMap = {};
+    let dataMap = new Map();
     const qwq = document.getElementById('qwq')!;
     var tab = qwq.getElementsByTagName("button")
     for (let i = 0; i < tab!.length; i++) {
@@ -104,4 +104,51 @@ function clickBuild() {
     const res = document.getElementById('res')!;
     res.innerHTML = JSON.stringify(dataMap, null, "    ")
     console.log(dataMap)
+
+    var cb = new CommandBuider()
+    for (const k in dataMap) {
+        cb.set_data(k)
+        cb.write_checkpoint(k)
+        cb.commit_and_push("Feat: Add the checkpoint when " + k)
+    }
+
+    cb.sync_data()
+    const res_ps1 = document.getElementById('res-ps1')!;
+    res_ps1.innerHTML = cb.toText()
+}
+
+class CommandBuider {
+    my_commnd: Array<string>;
+
+    constructor() {
+        this.my_commnd = new Array()
+        this.write_command("echo By NekokeCore")
+    }
+
+    write_command(command: string) {
+        this.my_commnd.push(command)
+    }
+
+    write_checkpoint(data: string) {
+        this.write_command("echo " + data + " >> checkpoint.log")
+    }
+
+    sync_data() {
+        this.write_command("w32tm /resync")
+    }
+
+    set_data(data: string) {
+        this.write_command("Set-Date \"" + data + " 09:27:20+08:00\"")
+    }
+
+    commit_and_push(commit_message: string) {
+        this.write_command("git add .")
+        this.write_command("git commit -m " + commit_message)
+        this.write_command("git push")
+    }
+
+    toText() {
+        return this.my_commnd.join("\n")
+    }
+
 }
