@@ -60,7 +60,7 @@ function addBr() {
 }
 
 function addBlock(dateTitle: Date) {
-    addEle("<button title=\"" + dateTitle.toISOString() + "\" onclick=\"xwx(this)\" type=\"button\" class=\"layui-btn layui-btn-xs\" style=\"background-color: darkgrey;padding: 15;margin: 2px;\">...</button>")
+    addEle("<button title=\"" + dateTitle.toISOString().split("T", 1)[0] + "\" onclick=\"xwx(this)\" type=\"button\" class=\"layui-btn layui-btn-xs\" style=\"background-color: darkgrey;padding: 15;margin: 2px;\">...</button>")
 }
 
 function addWhiteBlock() {
@@ -87,4 +87,20 @@ function addDay(dt: Date, dn: number) {
     var d = new Date(dt.getTime() + dn * 24 * 60 * 60 * 1000)
     // console.log(d)
     return d
+}
+
+function clickBuild() {
+    var dataMap = {};
+    const qwq = document.getElementById('qwq')!;
+    var tab = qwq.getElementsByTagName("button")
+    for (let i = 0; i < tab!.length; i++) {
+        var cn = tab!.item(i)!
+        var title = (cn as HTMLElement).getAttribute("title")!
+        var d = (cn as HTMLElement).getAttribute("d")!
+        if (title != null && d == "3") {
+            dataMap[title] = "1"
+        }
+    }
+
+    console.log(dataMap)
 }
