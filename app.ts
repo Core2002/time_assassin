@@ -130,7 +130,7 @@ class CommandBuider {
     }
 
     write_checkpoint(data: string) {
-        this.write_command("echo " + data + " >> checkpoint.log")
+        this.write_command("echo \"" + data + "\" >> checkpoint.log")
     }
 
     sync_data() {
@@ -143,7 +143,7 @@ class CommandBuider {
 
     commit_and_push(commit_message: string) {
         this.write_command("git add .")
-        this.write_command("git commit -m " + commit_message)
+        this.write_command("git commit -m \"" + commit_message + "\"")
         this.write_command("git push")
     }
 
