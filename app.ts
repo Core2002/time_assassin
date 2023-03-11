@@ -126,9 +126,9 @@ function clickBuild() {
     for (const k in dataMap) {
         cb.set_data(k)
         cb.write_checkpoint(k)
-        cb.commit_and_push("Feat: Add the checkpoint when " + k)
+        cb.commit("Feat: Add the checkpoint when " + k)
     }
-
+    cb.push()
     cb.sync_data()
     const res_ps1 = document.getElementById('res-ps1')!;
     res_ps1.innerHTML = cb.toText()
@@ -155,12 +155,16 @@ class CommandBuider {
     }
 
     set_data(data: string) {
-        this.write_command("Set-Date \"" + data + " 09:27:20+08:00\"")
+        this.write_command("Set-Date \"" + data + " 11:45:14+08:00\"")
     }
 
-    commit_and_push(commit_message: string) {
+    commit(commit_message: string) {
         this.write_command("git add .")
         this.write_command("git commit -m \"" + commit_message + "\"")
+    }
+
+    push() {
+        this.sync_data()
         this.write_command("git push")
     }
 
