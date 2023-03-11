@@ -16,10 +16,14 @@
       layer.msg('欢迎使用时间刺客');
       layui.code();
       form.render();
+
       laydate.render({
         elem: '#year_acc',
         type: 'year',
-        value: '2018'
+        value: yacc
+      });
+      form.val('form1', {
+        "white_block_count": wbc
       });
     });
   </script>
@@ -30,7 +34,7 @@
     <div class="layui-col-md3"><br></div>
     <div class="layui-col-md6">
 
-      <form class="layui-form" action="">
+      <form class="layui-form" action="" lay-filter="form1">
 
         <div class="layui-form-item">
           <div class="layui-inline">
@@ -43,8 +47,8 @@
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-                <option value="4">5</option>
-                <option value="4">6</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </div>
           </div>

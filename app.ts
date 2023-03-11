@@ -24,7 +24,7 @@ class YearPanel {
                     this.day_arr[iw][id] = 0;
                 } else {
                     this.day_arr[iw][id] = 2;
-                    this.day_date_arr[iw][id] = addDay(new Date(day_flag[0] + "-01-01"), lw * iw + id - 1);
+                    this.day_date_arr[iw][id] = addDay(new Date(day_flag[0] + "-01-01"), lw * iw + id - this.day_flag[1]);
                 }
             }
         }
@@ -51,8 +51,16 @@ class YearPanel {
     }
 }
 
-var y2018 = new YearPanel([2018, 1, 365])
-y2018.print_year_panel_l()
+
+var yacc = getQueryVariable("year_acc")
+var wbc = getQueryVariable("white_block_count")
+if (!(yacc && wbc)) {
+    yacc = "2018"
+    wbc = "1"
+}
+var ydc = getDayCountByYear(parseInt(yacc))
+var ypl = new YearPanel([parseInt(yacc), parseInt(wbc), ydc])
+ypl.print_year_panel_l()
 
 
 function addBr() {
@@ -81,6 +89,15 @@ function xwx(el: Element) {
         el.setAttribute("d", "3")
         el.setAttribute("style", "background-color: green;margin: 2px;")
     }
+}
+
+function getDayCountByYear(year: number) {
+    var i = 1
+    var td = new Date(year.toString() + "-01-01")
+    while ((td = addDay(td, 1)).getFullYear() == year) {
+        i++
+    }
+    return i
 }
 
 function addDay(dt: Date, dn: number) {
@@ -151,4 +168,14 @@ class CommandBuider {
         return this.my_commnd.join("\n")
     }
 
+}
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) { return pair[1]; }
+    }
+    return false;
 }
