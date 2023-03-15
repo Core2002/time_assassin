@@ -26,11 +26,6 @@
         "white_block_count": wbc
       });
     });
-
-    layui.$('#LAY-component-form-getval').on('click', function () {
-      var data = form.val('example');
-      alert(JSON.stringify(data));
-    });
   </script>
 </head>
 
@@ -78,8 +73,10 @@
       </div>
       <div class="layui-col-md6">
         <pre id="res" class="layui-code" lay-title="JavaScript"></pre><br>
-        <textarea id="imporFromJson" placeholder="请输入Json" class="layui-textarea"></textarea><br>
-        <button class="layui-btn" onclick="impFromJson()">从Json导入</button>
+        <div class="layui-form" action="" lay-filter="ifj">
+          <textarea id="imporFromJson" name="imporFromJson" placeholder="请输入Json" class="layui-textarea"></textarea><br>
+          <button class="layui-btn" onclick="IMPJS(layui.form.val('ifj')['imporFromJson'])">从Json导入</button>
+        </div>
       </div>
     </div>
     <div class="layui-col-md3"><br></div>

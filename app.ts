@@ -183,3 +183,17 @@ function getQueryVariable(variable) {
     }
     return false;
 }
+
+function IMPJS(jsonString: string) {
+    let obj = JSON.parse(jsonString);
+    const qwq = document.getElementById('qwq')!;
+    var tab = qwq.getElementsByTagName("button")
+    for (let i = 0; i < tab!.length; i++) {
+        var cn = tab!.item(i)!
+        var title = (cn as HTMLElement).getAttribute("title")!
+        if (obj[title] == "1") {
+            xwx((cn as HTMLElement))
+        }
+    }
+
+}
