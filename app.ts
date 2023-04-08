@@ -140,6 +140,7 @@ class CommandBuider {
     constructor() {
         this.my_commnd = new Array()
         this.write_command("echo By NekokeCore")
+        this.write_command("net start w32time")
     }
 
     write_command(command: string) {
